@@ -1,0 +1,8 @@
+➜  read-big-file git:(main) ✗ python3 generate_test_data.py
+4.31s user 23.82s system 89% cpu 31.460 total
+➜  read-big-file git:(main) ✗ du -sh test_data.txt
+ 32G    test_data.txt
+➜  read-big-file git:(main) ✗ time go run read_test_data.go      
+go run read_test_data.go  17.82s user 17.20s system 89% cpu 39.196 total
+➜  read-big-file git:(main) ✗ time python3 read_test_data.py     
+python3 read_test_data.py  118.40s user 24.12s system 79% cpu 2:58.30 total
