@@ -2,19 +2,21 @@
 import random
 import os
 
-url_max = 10**4
+url_max = 10**5
 value_max = 10**6
 
 lines = 10**6
 groups = 10**3
 
-files_count = 10**3
+files_count = 1
 tmp_file = "test_data.tmp"
 data_file = "test_data.txt"
 
 with open(tmp_file, "w") as f:
     for i in range(groups):
-        data = '\n'.join(f"http://api.example.com/{random.randint(0,url_max)} {random.randint(0, value_max)}" for i in range(lines//groups))
+        data = '\n'.join(
+            f"http://api.example.com/{random.randint(0,url_max)} {random.randint(0, value_max)}" for i in range(lines//groups))
+        data += '\n'
         f.write(data)
 
 with open(data_file, "w") as f:
