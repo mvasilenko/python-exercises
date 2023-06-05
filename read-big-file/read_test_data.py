@@ -5,23 +5,23 @@ import heapq
 """
 input file sample
 
-http://api.tech.com/item/121345  9
-http://api.tech.com/item/122345  350
-http://api.tech.com/item/123345  25
-http://api.tech.com/item/124345  231
-http://api.tech.com/item/125345  111
+http://api.example.com/121345  9
+http://api.example.com/122345  350
+http://api.example.com/123345  25
+http://api.example.com/24345  231
+http://api.example.com/125345  111
 
 result = url list for 2 max values
 
-http://api.tech.com/item/122345
-http://api.tech.com/item/124345
+http://api.example.com/122345
+http://api.example.com/124345
 """
 d = {
-    "http://api.tech.com/item/121345": "9",
-    "http://api.tech.com/item/122345": "350",
-    "http://api.tech.com/item/123345": "250",
-    "http://api.tech.com/item/124345": "231",
-    "http://api.tech.com/item/125345": "111",
+    "http://api.example.com/121345": "9",
+    "http://api.example.com/122345": "350",
+    "http://api.example.com/123345": "250",
+    "http://api.example.com/24345": "231",
+    "http://api.example.com/125345": "111",
 }
 
 
