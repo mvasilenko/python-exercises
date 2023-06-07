@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -40,9 +41,11 @@ func (h IntHeap) Swap(i, j int) {
 }
 
 func main() {
-	// Store highest counts in descending order
-	//var countListDescendingOrder []int64
-	var urlMap = map[int64]string{}
+    // peek top 10 values
+	const topK = 10
+
+	// store map of urls to topK values
+	var urlMap = map[string]int64{}
 
 	readFile, err := os.Open("test_data.txt")
 	defer readFile.Close()
@@ -69,22 +72,38 @@ func main() {
 			continue
 		}
 
-		heap.Push(&h, count)
-		urlMap[count] = url
-
-		if len(h) > 10 {
+		// initial fill for heap
+		if len(h) < topK {
+			heap.Push(&h, count)
+			urlMap[url] = count
+			continue
+		}
+		// value is bigger then min in heap h[0] ?
+		if count > h[0] {
+			heap.Push(&h, count)
+			urlMap[url] = count
+			// pop out min value from the heap
 			minHeap := heap.Pop(&h)
-			delete(urlMap, minHeap.(int64))
+            // delete corresponding url from map of topK urls
+			for k, v := range urlMap {
+				if v == minHeap {
+					delete(urlMap, k)
+					break
+				}
+			}
 		}
 	}
+    // create keys list from urlMap
+	keys := make([]string, 0, len(urlMap))
+	for key := range urlMap {
+        keys = append(keys, key)
+    }
+    // sort map by value in descending order
+	sort.Slice(keys, func(i, j int) bool { return urlMap[keys[i]] > urlMap[keys[j]] })
+	for _, key := range keys {
+        fmt.Printf("%s\n", key)
+    }
 
-	for _, v := range h {
-		fmt.Println(v)
-	}
-	fmt.Println()
-	for k, v := range urlMap {
-		fmt.Println(k, v)
-	}
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
