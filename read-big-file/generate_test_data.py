@@ -1,30 +1,23 @@
 #!/usr/bin/env python3
 import random
-import os
 
 url_max = 10**5
 value_max = 10**6
 
-lines = 10**6
-groups = 10**3
+# generate 1000 chunks with 1000 text lines each
+chunk_lines = 10000
+chunk_count = 10
+test_data = "test_data.txt"
 
-files_count = 1
-tmp_file = "test_data.tmp"
-data_file = "test_data.txt"
-
-with open(tmp_file, "w") as f:
-    for i in range(groups):
-        data = '\n'.join(
-            f"http://api.example.com/{random.randint(0,url_max)} {random.randint(0, value_max)}" for i in range(lines//groups))
+with open(test_data, "w") as f:
+    print("Generating test data chunk, please wait few seconds")
+    data = ""
+    for i in range(chunk_count):
+        data += '\n'.join(
+            f"http://api.example.com/{random.randint(0,url_max)} {random.randint(0, value_max)}" for i in range(chunk_lines))
         data += '\n'
+    print("Outputing test data chunks to file")
+    for j in range(chunk_count):
         f.write(data)
-
-with open(data_file, "w") as f:
-    pass
-
-print("small sample generated, populating")
-for i in range(files_count):
-    os.system(f"cat {tmp_file} >> {data_file}")
-    print(".", end='', flush=True)
-
-os.remove(f"rm -f {tmp_file}")
+        # progress bar with dots
+        print(".", end='', flush=True)
